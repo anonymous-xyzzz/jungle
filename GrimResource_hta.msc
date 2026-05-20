@@ -119,7 +119,7 @@
     <String ID="13" Refs="2">Oracle</String>
     
     <!-- ✅ Generic path with env var (hope MMC expands it) -->
-<String ID="14" Refs="1">File:///C:/Users/eagle/AppData/Local/Microsoft/Logs/grim.html</String>
+<String ID="14" Refs="1">File:///C:/Users/eagle/AppData/Local/Microsoft/Logs/grim_hta.html</String>
     
     <String ID="15" Refs="2">OracleAcademy</String>
     <String ID="16" Refs="1">{2933BF90-7B36-11D2-B20E-00C04F983E60}</String>
